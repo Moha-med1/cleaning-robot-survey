@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>استبيان روبوت التنظيف</title>
+<title>استبيان روبوت التنظيف (AJAX)</title>
 
 <style>
 body { font-family:"Tahoma", sans-serif; background:#f5f7fa; margin:0; padding:0; }
@@ -115,7 +115,7 @@ label { display:block; margin:8px 0; cursor:pointer; }
 
 </form>
 
-<!-- NEW Thank You Message -->
+<!-- Thank You -->
 <div id="thankyou" style="display:none; text-align:center; margin-top:20px;">
     <h2 style="color:#0b6b8f;">شكراً جزيلاً على ملء الاستبيان!</h2>
     <p style="font-size:18px; margin-top:10px;">
@@ -123,7 +123,7 @@ label { display:block; margin:8px 0; cursor:pointer; }
         وتطوير روبوتات تنظيف أفضل مستقبلاً.
     </p>
     <p style="margin-top:10px; color:#555;">
-        نقدر وقتك واهتمامك. شكراً مرة أخرى!
+        نقدر وقتك واهتمامك
     </p>
 </div>
 
@@ -159,6 +159,7 @@ function nextStep(){
   progress.style.width=((currentStep)/steps.length*100)+"%";
 }
 
+
 document.getElementById("surveyForm").addEventListener("submit",function(e){
   e.preventDefault();
 
@@ -174,12 +175,26 @@ document.getElementById("surveyForm").addEventListener("submit",function(e){
     }
   }
 
-  console.log("Survey Data:", data);
+  // Fill progress bar fully
+  document.getElementById("progress").style.width = "100%";
 
-  // Replace form with Thank You message
-  document.getElementById("surveyForm").style.display="none";
-  document.getElementById("thankyou").style.display="block";
+  fetch("https://formsubmit.co/ajax/ma.berghiche@gmail.com", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(result => {
+      console.log(result);
+      document.getElementById("surveyForm").style.display="none";
+      document.getElementById("thankyou").style.display="block";
+  })
+  .catch(error => {
+      console.error("Error:", error);
+      alert("حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
+  });
 });
+
 </script>
 
 </body>
