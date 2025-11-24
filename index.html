@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<form id="surveyForm" action="https://formsubmit.co/ma.berghiche@gmail.com" method="POST">
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>استبيان روبوت التنظيف - تفاعلي</title>
+<title>استبيان روبوت التنظيف</title>
+
 <style>
 body { font-family:"Tahoma", sans-serif; background:#f5f7fa; margin:0; padding:0; }
 .container { max-width:600px; margin:40px auto; background:#fff; border-radius:10px; box-shadow:0 6px 16px rgba(0,0,0,0.08); padding:20px; }
 h1 { text-align:center; color:#0b4a6f; }
 .step { display:none; }
 .step.active { display:block; animation:fadeIn 0.5s; }
+
 @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
 button { padding:12px 20px; font-size:16px; border:none; border-radius:6px; background:#0b6b8f; color:#fff; font-weight:bold; cursor:pointer; margin-top:12px; }
 button:active { transform:translateY(1px); }
+
 .progress-bar { background:#d9e2ec; border-radius:6px; overflow:hidden; margin-bottom:20px; height:10px; }
 .progress { background:#0b6b8f; height:100%; width:0%; transition:width 0.3s; }
+
 label { display:block; margin:8px 0; cursor:pointer; }
 .radio-group label { display:block; margin:4px 0; }
 </style>
 </head>
+
 <body>
+
 <div class="container">
 <h1>استبيان روبوت التنظيف</h1>
 <div class="progress-bar"><div class="progress" id="progress"></div></div>
@@ -68,7 +74,7 @@ label { display:block; margin:8px 0; cursor:pointer; }
 <div class="radio-group">
 <label><input type="checkbox" name="floor_type" value="tiles"> بلاط</label>
 <label><input type="checkbox" name="floor_type" value="wood"> أرضية خشبية</label>
-<label><input type="checkbox" name="floor_type" value="carpet"> سجّاد/موكيت</label>
+<label><input type="checkbox" name="floor_type" value="carpet"> سجّاد</label>
 </div>
 <button type="button" onclick="nextStep()">التالي</button>
 </div>
@@ -80,7 +86,6 @@ label { display:block; margin:8px 0; cursor:pointer; }
 <label><input type="radio" name="function" value="vacuum" required> شفط الغبار</label>
 <label><input type="radio" name="function" value="wash"> غسل الأرض</label>
 <label><input type="radio" name="function" value="sweep"> كنس / تنظيف سطحي</label>
-<label><input type="radio" name="function" value="mixed"> جميعها معاً</label>
 </div>
 <button type="button" onclick="nextStep()">التالي</button>
 </div>
@@ -109,9 +114,19 @@ label { display:block; margin:8px 0; cursor:pointer; }
 </div>
 
 </form>
+
+<!-- NEW Thank You Message -->
 <div id="thankyou" style="display:none; text-align:center; margin-top:20px;">
-<h2>شكراً لمشاركتك!</h2>
-<p>تم إرسال إجاباتك بنجاح.</p>
+    <h2 style="color:#0b6b8f;">شكراً جزيلاً على ملء الاستبيان!</h2>
+    <p style="font-size:18px; margin-top:10px;">
+        لقد تم تسجيل إجاباتك بنجاح. مشاركتك تساعدنا في فهم احتياجات السوق الجزائري
+        وتطوير روبوتات تنظيف أفضل مستقبلاً.
+    </p>
+    <p style="margin-top:10px; color:#555;">
+        نقدر وقتك واهتمامك. شكراً مرة أخرى!
+    </p>
+</div>
+
 </div>
 
 <script>
@@ -122,31 +137,50 @@ const progress=document.getElementById("progress");
 function nextStep(){
   const radios=steps[currentStep].querySelectorAll("input[type=radio]");
   let valid=true;
-  for(const r of radios){ if(r.required && !Array.from(radios).some(rb=>rb.checked)){valid=false;} }
-  if(!valid){ alert("الرجاء اختيار إجابة واحدة على الأقل للمتابعة"); return; }
+
+  for(const r of radios){
+    if(r.required && !Array.from(radios).some(rb=>rb.checked)){
+      valid=false;
+    }
+  }
+
+  if(!valid){
+    alert("الرجاء اختيار إجابة واحدة على الأقل للمتابعة");
+    return;
+  }
 
   steps[currentStep].classList.remove("active");
   currentStep++;
+
   if(currentStep<steps.length){
     steps[currentStep].classList.add("active");
   }
+
   progress.style.width=((currentStep)/steps.length*100)+"%";
 }
 
 document.getElementById("surveyForm").addEventListener("submit",function(e){
   e.preventDefault();
+
   const formData=new FormData(this);
   const data={};
+
   for(const [k,v] of formData.entries()){
     if(data[k]!==undefined){
       if(!Array.isArray(data[k])) data[k]=[data[k]];
       data[k].push(v);
-    }else data[k]=v;
+    } else {
+      data[k]=v;
+    }
   }
+
   console.log("Survey Data:", data);
+
+  // Replace form with Thank You message
   document.getElementById("surveyForm").style.display="none";
   document.getElementById("thankyou").style.display="block";
 });
 </script>
+
 </body>
 </html>
