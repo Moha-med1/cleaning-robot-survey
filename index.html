@@ -34,7 +34,14 @@
   <h1>استبيان روبوت التنظيف</h1>
   <div class="progress-bar" aria-hidden="true"><div id="progress" class="progress"></div></div>
 
-  <form id="surveyForm" autocomplete="off" novalidate>
+  <!-- NOTE: action + method so FormSubmit gets all fields. _template=table shows all fields as a table in email -->
+  <form id="surveyForm" autocomplete="off" novalidate
+        action="https://formsubmit.co/ma.berghiche@gmail.com" method="POST">
+
+    <!-- FormSubmit helpers -->
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+
     <!-- Original Step 1 -->
     <div class="step active" data-step="1">
       <h2>العمر</h2>
@@ -74,9 +81,10 @@
     <div class="step" data-step="4">
       <h2>نوع الأرضيات في المنزل (اختر كل ما ينطبق)</h2>
       <div class="checkbox-group" role="group" aria-label="نوع الأرضيات">
-        <label><input type="checkbox" name="floor_type" value="tiles"> بلاط</label>
-        <label><input type="checkbox" name="floor_type" value="wood"> أرضية خشبية</label>
-        <label><input type="checkbox" name="floor_type" value="carpet"> سجّاد</label>
+        <!-- NOTE: name uses [] so multiple values are sent -->
+        <label><input type="checkbox" name="floor_type[]" value="tiles"> بلاط</label>
+        <label><input type="checkbox" name="floor_type[]" value="wood"> أرضية خشبية</label>
+        <label><input type="checkbox" name="floor_type[]" value="carpet"> سجّاد</label>
       </div>
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
@@ -85,9 +93,9 @@
     <div class="step" data-step="5">
       <h2>وظائف روبوت التنظيف المفضلة (اختر كل ما ينطبق)</h2>
       <div class="checkbox-group" role="group" aria-label="وظائف روبوت التنظيف">
-        <label><input type="checkbox" name="function" value="vacuum" required> شفط الغبار</label>
-        <label><input type="checkbox" name="function" value="wash"> غسل الأرض</label>
-        <label><input type="checkbox" name="function" value="sweep"> كنس / تنظيف سطحي</label>
+        <label><input type="checkbox" name="function[]" value="vacuum" required> شفط الغبار</label>
+        <label><input type="checkbox" name="function[]" value="wash"> غسل الأرض</label>
+        <label><input type="checkbox" name="function[]" value="sweep"> كنس / تنظيف سطحي</label>
       </div>
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
@@ -114,7 +122,6 @@
         <label><input type="radio" name="q1_experience" value="used_personally"> جربتها شخصياً</label>
         <label><input type="radio" name="q1_experience" value="dont_know"> لا أعرف عنها أي شيء</label>
       </div>
-      <!--div class="note">هذا السؤال يساعد في فهم مستوى الإلمام بالسوق</div-->
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
 
@@ -129,7 +136,6 @@
         <label><input type="radio" name="q2_barrier" value="maintenance_unavailable"> الصيانة وقطع الغيار غير متوفرة</label>
         <label><input type="radio" name="q2_barrier" value="dont_feel_need"> لا أشعر أنني بحاجة إليه</label>
       </div>
-      <!--div class="note">اختيار واحد يساعد على تحديد أهم العقبات السوقية</div-->
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
 
@@ -141,7 +147,6 @@
         <label><input type="radio" name="q4_local_trust" value="maybe"> ربما</label>
         <label><input type="radio" name="q4_local_trust" value="no"> لا</label>
       </div>
-      <!-- div class="note">هذا يقيّم قابلية نجاح المشروع محلياً</div-->
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
 
@@ -156,26 +161,24 @@
         <label><input type="radio" name="q5_brands" value="other"> أخرى</label>
         <label><input type="radio" name="q5_brands" value="dont_know"> لا أعرف أي شركة</label>
       </div>
-      <!--div class="note">يمكن إضافة اسم الشركة في حقل ملاحظات لاحقاً إذا اخترت "أخرى"</div-->
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
     <!-- NEW CRITICAL QUESTIONS END -->
 
-    <!-- Extra interest question (added as requested) -->
+    <!-- Extra interest question -->
     <div class="step" data-step="11">
       <h2>هل أنت مهتم بشراء روبوت تنظيف؟</h2>
       <div class="radio-group" role="radiogroup" aria-label="هل أنت مهتم بشراء روبوت تنظيف">
         <label><input type="radio" name="interest_buy" value="interested" required> نعم، مهتم</label>
         <label><input type="radio" name="interest_buy" value="not_interested"> لا، لست مهتماً</label>
       </div>
-      <!--div class="note">هذا سؤال مباشر لقياس الاهتمام العام (commerical interest).</div-->
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
 
     <!-- Original Step 7 (moved to last) -->
     <div class="step" data-step="12">
       <h2>هل تفكر في شراء روبوت تنظيف خلال 12 شهرًا القادمة؟</h2>
-      <div class="radio-group" role="radiogroup" aria-label="نية الشراء">
+      <div class="radio-group" aria-label="نية الشراء">
         <label><input type="radio" name="buy_intent" value="definitely" required> بالتأكيد</label>
         <label><input type="radio" name="buy_intent" value="maybe"> ربما</label>
         <label><input type="radio" name="buy_intent" value="no"> لا</label>
@@ -204,22 +207,18 @@
   const restartBtn = document.getElementById('restartBtn');
 
   let current = 0;
-  const totalSteps = steps.length; // dynamic: counts new questions automatically
+  const totalSteps = steps.length;
 
   function showStep(index){
     steps.forEach((s,i)=> s.classList.toggle('active', i===index));
-    // set progress to (index/total) but not full 100% until submit
     const pct = Math.round((index)/totalSteps*100);
     progress.style.width = pct + '%';
   }
 
-  // initialize
   showStep(0);
 
-  // next buttons
   document.querySelectorAll('.nextBtn, #nextBtn1').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      // validate current step required radios
       const currentStepEl = steps[current];
       const requiredRadios = currentStepEl.querySelectorAll('input[type="radio"][required]');
       if(requiredRadios.length){
@@ -232,52 +231,20 @@
           return;
         }
       }
-      // move next
       if(current < totalSteps-1){
         current++;
         showStep(current);
-        // focus first input for accessibility
         const firstInput = steps[current].querySelector('input');
         if(firstInput) firstInput.focus();
       }
     });
   });
 
-  // helper to collect form data (checkboxes aggregated)
-  function collectData(){
-    const fd = new FormData(form);
-    const obj = {};
-    for(const [k,v] of fd.entries()){
-      if(obj[k] !== undefined){
-        if(!Array.isArray(obj[k])) obj[k] = [obj[k]];
-        obj[k].push(v);
-      } else {
-        obj[k] = v;
-      }
-    }
-    // collect checked checkboxes manually to ensure arrays
-    const checkboxNames = Array.from(form.querySelectorAll('input[type="checkbox"]')).map(ch=>ch.name)
-      .filter((v,i,a)=>a.indexOf(v)===i);
-    checkboxNames.forEach(name=>{
-      const values = Array.from(form.querySelectorAll('input[name="'+name+'"]:checked')).map(i=>i.value);
-      if(values.length) obj[name] = values;
-    });
-    return obj;
-  }
-
-  // animate progress to 100% smoothly
-  function animateProgressToFull(duration=600){
-    return new Promise(resolve=>{
-      progress.style.transition = 'width '+duration+'ms ease';
-      progress.style.width = '100%';
-      setTimeout(()=>{ resolve(); }, duration + 50);
-    });
-  }
-
+  // On submit: animate progress, then let the browser post the form normally
   form.addEventListener('submit', function(e){
+    // stop default only to play animation, then allow submission
     e.preventDefault();
 
-    // validate last step required
     const requiredRadios = steps[current].querySelectorAll('input[type="radio"][required]');
     if(requiredRadios.length){
       const any = Array.from(requiredRadios).some(r=>{
@@ -290,43 +257,22 @@
       }
     }
 
-   // collect data
-   const data = collectData();
-
-   // convert arrays → strings
-   const cleanedData = {};
-   for (const key in data) {
-     cleanedData[key] = Array.isArray(data[key])
-       ? data[key].join(", ")
-       : data[key];
-   }
-
-   animateProgressToFull(500).then(()=> {
-     fetch('https://formsubmit.co/ajax/ma.berghiche@gmail.com', {
-       method: 'POST',
-       headers: { 
-         'Content-Type': 'application/json',
-         'Accept': 'application/json' 
-       },
-       body: JSON.stringify(cleanedData)
-     })
-     .then(r=> r.json())
-     .then(response => {
-         form.style.display = 'none';
-         thankyou.style.display = 'block';
-     })
-     .catch(err=>{
-         console.error('Send error', err);
-         alert('حدث خطأ أثناء الإرسال. حاول مرة أخرى.');
-     });
-   });
-
+    // animate progress to full, then submit
+    progress.style.transition = 'width 600ms ease';
+    progress.style.width = '100%';
+    setTimeout(()=>{
+      // show thank you UI immediately for better UX (form will still be sent)
+      form.style.display = 'none';
+      thankyou.style.display = 'block';
+      // actually submit the form (browser POST)
+      // use a tiny timeout so the UI updates before navigation
+      setTimeout(()=> form.submit(), 100);
+    }, 600);
 
   });
 
-  // restart functionality
+  // restart functionality: reset and show first step
   restartBtn.addEventListener('click', ()=>{
-    // reset
     form.reset();
     thankyou.style.display = 'none';
     form.style.display = '';
