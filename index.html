@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>استبيان روبوت التنظيف — v3</title>
+<title>استبيان روبوت التنظيف — v4 (محدث)</title>
 <style>
   body { font-family: Tahoma, Arial, sans-serif; background:#f5f7fa; margin:0; padding:20px; color:#102a43; }
-  .container { max-width:680px; margin:32px auto; background:#fff; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.08); padding:20px; }
+  .container { max-width:720px; margin:32px auto; background:#fff; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.08); padding:22px; }
   h1 { text-align:center; color:#0b4a6f; margin:0 0 12px; }
   .progress-bar { background:#e6eef6; height:12px; border-radius:8px; overflow:hidden; margin-bottom:18px; }
   .progress { height:100%; width:0%; background:linear-gradient(90deg,#0b6b8f,#2aa3d1); transition:width 600ms ease; }
@@ -19,8 +19,9 @@
   .btn-secondary { background:#6b8b99; margin-left:8px; }
   .center { text-align:center; margin-top:16px; }
   #thankyou { display:none; text-align:center; padding:18px 8px; }
-  #thankyou h2 { color:#0b6b8f; margin-bottom:6px; }
+  #thankyou h2 { color:#0b4a6f; margin-bottom:6px; }
   .small { font-size:13px; color:#5b6f78; }
+  .note { font-size:13px; color:#5b6f78; margin-top:6px; }
   /* responsive */
   @media(max-width:520px){
     .container{margin:12px}
@@ -34,7 +35,7 @@
   <div class="progress-bar" aria-hidden="true"><div id="progress" class="progress"></div></div>
 
   <form id="surveyForm" autocomplete="off" novalidate>
-    <!-- Step 1 -->
+    <!-- Original Step 1 -->
     <div class="step active" data-step="1">
       <h2>العمر</h2>
       <div class="radio-group" role="radiogroup" aria-label="العمر">
@@ -46,7 +47,7 @@
       <div class="center"><button type="button" id="nextBtn1">التالي</button></div>
     </div>
 
-    <!-- Step 2 -->
+    <!-- Original Step 2 -->
     <div class="step" data-step="2">
       <h2>نوع السكن</h2>
       <div class="radio-group" role="radiogroup" aria-label="نوع السكن">
@@ -57,7 +58,7 @@
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
 
-    <!-- Step 3 -->
+    <!-- Original Step 3 -->
     <div class="step" data-step="3">
       <h2>عدد مرات التنظيف أسبوعياً</h2>
       <div class="radio-group" role="radiogroup" aria-label="عدد مرات التنظيف">
@@ -69,7 +70,7 @@
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
 
-    <!-- Step 4 -->
+    <!-- Original Step 4 -->
     <div class="step" data-step="4">
       <h2>نوع الأرضيات في المنزل (اختر كل ما ينطبق)</h2>
       <div class="checkbox-group" role="group" aria-label="نوع الأرضيات">
@@ -80,18 +81,18 @@
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
 
-    <!-- Step 5 -->
+    <!-- Original Step 5 -->
     <div class="step" data-step="5">
-      <h2>وظائف روبوت التنظيف المفضلة</h2>
-      <div class="radio-group" role="radiogroup" aria-label="وظائف روبوت التنظيف">
-        <label><input type="radio" name="function" value="vacuum" required> شفط الغبار</label>
-        <label><input type="radio" name="function" value="wash"> غسل الأرض</label>
-        <label><input type="radio" name="function" value="sweep"> كنس / تنظيف سطحي</label>
+      <h2>وظائف روبوت التنظيف المفضلة (اختر كل ما ينطبق)</h2>
+      <div class="checkbox-group" role="group" aria-label="وظائف روبوت التنظيف">
+        <label><input type="checkbox" name="function" value="vacuum" required> شفط الغبار</label>
+        <label><input type="checkbox" name="function" value="wash"> غسل الأرض</label>
+        <label><input type="checkbox" name="function" value="sweep"> كنس / تنظيف سطحي</label>
       </div>
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
 
-    <!-- Step 6 -->
+    <!-- Original Step 6 -->
     <div class="step" data-step="6">
       <h2>أعلى سعر مستعد لدفعه</h2>
       <div class="radio-group" role="radiogroup" aria-label="أعلى سعر">
@@ -103,8 +104,76 @@
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
 
-    <!-- Step 7 -->
+    <!-- NEW CRITICAL QUESTIONS START -->
+    <!-- Q1 -->
     <div class="step" data-step="7">
+      <h2>معرفتك السابقة بروبوتات التنظيف</h2>
+      <div class="radio-group" role="radiogroup" aria-label="معرفتك السابقة بروبوتات التنظيف">
+        <label><input type="radio" name="q1_experience" value="heard_only" required> سمعت عنها فقط</label>
+        <label><input type="radio" name="q1_experience" value="saw_others"> رأيتها عند الآخرين</label>
+        <label><input type="radio" name="q1_experience" value="used_personally"> جربتها شخصياً</label>
+        <label><input type="radio" name="q1_experience" value="dont_know"> لا أعرف عنها أي شيء</label>
+      </div>
+      <!--div class="note">هذا السؤال يساعد في فهم مستوى الإلمام بالسوق</div-->
+      <div class="center"><button type="button" class="nextBtn">التالي</button></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="step" data-step="8">
+      <h2>أكبر سبب يمنعك من شراء روبوت تنظيف</h2>
+      <div class="radio-group" role="radiogroup" aria-label="أكبر سبب يمنع الشراء">
+        <label><input type="radio" name="q2_barrier" value="high_price" required> السعر مرتفع</label>
+        <label><input type="radio" name="q2_barrier" value="quality_unreliable"> الجودة غير مضمونة</label>
+        <label><input type="radio" name="q2_barrier" value="not_suitable_floor"> غير مناسب لنوع الأرضيات عندي</label>
+        <label><input type="radio" name="q2_barrier" value="dont_trust_effectiveness"> لا أثق في فعاليتها</label>
+        <label><input type="radio" name="q2_barrier" value="maintenance_unavailable"> الصيانة وقطع الغيار غير متوفرة</label>
+        <label><input type="radio" name="q2_barrier" value="dont_feel_need"> لا أشعر أنني بحاجة إليه</label>
+      </div>
+      <!--div class="note">اختيار واحد يساعد على تحديد أهم العقبات السوقية</div-->
+      <div class="center"><button type="button" class="nextBtn">التالي</button></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="step" data-step="9">
+      <h2>هل تثق في شراء روبوت تنظيف مصنوع محلياً (جزائري) إذا كان بجودة جيدة وسعر مناسب؟</h2>
+      <div class="radio-group" role="radiogroup" aria-label="هل تثق في شراء روبوت تنظيف محلي؟">
+        <label><input type="radio" name="q4_local_trust" value="yes" required> نعم</label>
+        <label><input type="radio" name="q4_local_trust" value="maybe"> ربما</label>
+        <label><input type="radio" name="q4_local_trust" value="no"> لا</label>
+      </div>
+      <!-- div class="note">هذا يقيّم قابلية نجاح المشروع محلياً</div-->
+      <div class="center"><button type="button" class="nextBtn">التالي</button></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="step" data-step="10">
+      <h2>ما الشركات التي تعتبرها الأكثر موثوقية في روبوتات التنظيف؟</h2>
+      <div class="radio-group" role="radiogroup" aria-label="ما الشركات الأكثر موثوقية">
+        <label><input type="radio" name="q5_brands" value="xiaomi" required> Xiaomi Mi Robot</label>
+        <label><input type="radio" name="q5_brands" value="irobot"> iRobot Roomba</label>
+        <label><input type="radio" name="q5_brands" value="ecovacs"> Ecovacs</label>
+        <label><input type="radio" name="q5_brands" value="roborock"> Roborock</label>
+        <label><input type="radio" name="q5_brands" value="other"> أخرى</label>
+        <label><input type="radio" name="q5_brands" value="dont_know"> لا أعرف أي شركة</label>
+      </div>
+      <!--div class="note">يمكن إضافة اسم الشركة في حقل ملاحظات لاحقاً إذا اخترت "أخرى"</div-->
+      <div class="center"><button type="button" class="nextBtn">التالي</button></div>
+    </div>
+    <!-- NEW CRITICAL QUESTIONS END -->
+
+    <!-- Extra interest question (added as requested) -->
+    <div class="step" data-step="11">
+      <h2>هل أنت مهتم بشراء روبوت تنظيف؟</h2>
+      <div class="radio-group" role="radiogroup" aria-label="هل أنت مهتم بشراء روبوت تنظيف">
+        <label><input type="radio" name="interest_buy" value="interested" required> نعم، مهتم</label>
+        <label><input type="radio" name="interest_buy" value="not_interested"> لا، لست مهتماً</label>
+      </div>
+      <!--div class="note">هذا سؤال مباشر لقياس الاهتمام العام (commerical interest).</div-->
+      <div class="center"><button type="button" class="nextBtn">التالي</button></div>
+    </div>
+
+    <!-- Original Step 7 (moved to last) -->
+    <div class="step" data-step="12">
       <h2>هل تفكر في شراء روبوت تنظيف خلال 12 شهرًا القادمة؟</h2>
       <div class="radio-group" role="radiogroup" aria-label="نية الشراء">
         <label><input type="radio" name="buy_intent" value="definitely" required> بالتأكيد</label>
@@ -118,7 +187,7 @@
 
   <div id="thankyou" aria-live="polite">
     <h2>شكراً جزيلاً على ملء الاستبيان!</h2>
-    <p class="small">لقد تم تسجيل إجاباتك بنجاح. مشاركتك تساعدنا في فهم احتياجات السوق الجزائري وتطوير روبوتات تنظيف أفضل.</p>
+    <p class="small">لقد تم تسجيل إجاباتك بنجاح. مشاركتك تساعدنا في فهم احتياجات السوق الجزائري وتطوير روبوتات تنظيف أفضل</p>
     <p class="small">نقدر وقتك واهتمامك</p>
     <div class="center" style="margin-top:12px;">
       <button id="restartBtn" class="btn-secondary">إعادة تعبئة الاستبيان</button>
@@ -135,7 +204,7 @@
   const restartBtn = document.getElementById('restartBtn');
 
   let current = 0;
-  const totalSteps = steps.length;
+  const totalSteps = steps.length; // dynamic: counts new questions automatically
 
   function showStep(index){
     steps.forEach((s,i)=> s.classList.toggle('active', i===index));
@@ -198,8 +267,6 @@
 
   // animate progress to 100% smoothly
   function animateProgressToFull(duration=600){
-    const start = parseFloat(getComputedStyle(progress).width) || 0;
-    // we will set width via percent
     return new Promise(resolve=>{
       progress.style.transition = 'width '+duration+'ms ease';
       progress.style.width = '100%';
@@ -227,8 +294,7 @@
     const data = collectData();
     // show progress to full
     animateProgressToFull(500).then(()=> {
-      // send via FormSubmit AJAX endpoint
-      // keep same email as requested
+      // send via FormSubmit AJAX endpoint (same as original)
       fetch('https://formsubmit.co/ajax/ma.berghiche@gmail.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
