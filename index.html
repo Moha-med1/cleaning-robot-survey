@@ -290,29 +290,37 @@
       }
     }
 
-    // collect data
-    const data = collectData();
-    // show progress to full
-    animateProgressToFull(500).then(()=> {
-      // send via FormSubmit AJAX endpoint (same as original)
-      fetch('https://formsubmit.co/ajax/ma.berghiche@gmail.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data)
-      })
-      .then(r=> r.json())
-      .then(response => {
-        // hide form and show thank you
-        form.style.display = 'none';
-        thankyou.style.display = 'block';
-        // reset progress style transition for future restarts
-        setTimeout(()=> { progress.style.transition='width 600ms ease'; }, 400);
-      })
-      .catch(err=>{
-        console.error('Send error', err);
-        alert('حدث خطأ أثناء الإرسال. حاول مرة أخرى أو افتح الصفحة في نافذة جديدة.');
-      });
-    });
+   // collect data
+   const data = collectData();
+
+   // convert arrays → strings
+   const cleanedData = {};
+   for (const key in data) {
+     cleanedData[key] = Array.isArray(data[key])
+       ? data[key].join(", ")
+       : data[key];
+   }
+
+   animateProgressToFull(500).then(()=> {
+     fetch('https://formsubmit.co/ajax/ma.berghiche@gmail.com', {
+       method: 'POST',
+       headers: { 
+         'Content-Type': 'application/json',
+         'Accept': 'application/json' 
+       },
+       body: JSON.stringify(cleanedData)
+     })
+     .then(r=> r.json())
+     .then(response => {
+         form.style.display = 'none';
+         thankyou.style.display = 'block';
+     })
+     .catch(err=>{
+         console.error('Send error', err);
+         alert('حدث خطأ أثناء الإرسال. حاول مرة أخرى.');
+     });
+   });
+
 
   });
 
