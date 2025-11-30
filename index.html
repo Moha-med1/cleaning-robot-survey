@@ -112,6 +112,18 @@
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
     </div>
 
+    <!-- Living Standard Question -->
+    <div class="step" data-step="NEW">
+      <h2>كيف تصف مستوى المعيشة التقريبي لأسرتك؟</h2>
+    <div class="radio-group" role="radiogroup" aria-label="مستوى المعيشة">
+      <label><input type="radio" name="living_standard" value="basic" required> أساسي — نغطي الاحتياجات الضرورية فقط</label>
+      <label><input type="radio" name="living_standard" value="average"> متوسط — نغطي الضروريات مع بعض الكماليات</label>
+      <label><input type="radio" name="living_standard" value="comfortable"> مريح — نستطيع شراء الكماليات بدون صعوبة</label>
+      <label><input type="radio" name="living_standard" value="high"> مرتفع — مستوى معيشي مرتفع وكماليات بانتظام</label>
+    </div>
+    <div class="center"><button type="button" class="nextBtn">التالي</button></div>
+  </div>
+
     <!-- NEW CRITICAL QUESTIONS START -->
     <!-- Q1 -->
     <div class="step" data-step="7">
@@ -173,17 +185,6 @@
         <label><input type="radio" name="interest_buy" value="not_interested"> لا، لست مهتماً</label>
       </div>
       <div class="center"><button type="button" class="nextBtn">التالي</button></div>
-    </div>
-
-    <!-- Original Step 7 (moved to last) -->
-    <div class="step" data-step="12">
-      <h2>هل تفكر في شراء روبوت تنظيف خلال 12 شهرًا القادمة؟</h2>
-      <div class="radio-group" aria-label="نية الشراء">
-        <label><input type="radio" name="buy_intent" value="definitely" required> بالتأكيد</label>
-        <label><input type="radio" name="buy_intent" value="maybe"> ربما</label>
-        <label><input type="radio" name="buy_intent" value="no"> لا</label>
-      </div>
-      <div class="center"><button type="submit" id="submitBtn">إرسال</button></div>
     </div>
 
   </form>
@@ -290,6 +291,7 @@
 
 </body>
 </html>
+
 
 
 
